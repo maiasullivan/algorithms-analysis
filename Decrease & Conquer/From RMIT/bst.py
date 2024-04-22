@@ -128,31 +128,36 @@ class BST:
         @return Minimum key in tree.
         """
         # TO BE IMPLEMENTED
-        minval = self[0]
-        for i in self:
-            if self[i] < minval:
-                minval = self[i]
-        return minval
+        if self.root is None:
+            return -1
+        return self.find_min(self, self.root)
+    
+    def find_min(self, node):
+        while node.left_child is not None:
+            node = node.left_child
+        return node
 
     def max(self):
         """
         Find maximum key in tree.
+
         @return Maximum key in tree.
         """
         # TO BE IMPLEMENTED
-        maxval = self[0]
-        for i in self:
-            if self[i] > maxval:
-                maxval = self[i]
-        return maxval
+        if self.root is None:
+            return -1
+        return self.find_max(self, self.root)
+    
+    def find_max(self, node):
+        while node.right_child is not None:
+            node = node.right_child
+        return node
 
     def height(self):
         """
         Compute the height of the tree.
         @return Height of tree.
         """
-
-        # TO BE IMPLEMENTED
         return self.height_from_root(self.root)
     
     def height_from_root(self, root):
