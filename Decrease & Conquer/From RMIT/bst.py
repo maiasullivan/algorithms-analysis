@@ -35,14 +35,29 @@ class BST:
 
     def search(self, key):
         """
-        Add key to tree.
+        Search for a key in the tree using binary search.
         
-        @param key key to search for.
+        @param key Key to search for.
         @return True if key is in the BST, otherwise false.
         """
-        # TO BE IMPLEMENTED
-        # Place holder return
-        return False
+        return self.search_from_root(self.root, key)
+
+    def search_from_root(self, root, key):
+        """
+        Recursive method to search for a key in the tree using binary search.
+        
+        @param root Root node of the tree.
+        @param key Key to search for.
+        @return True if key is in the BST, otherwise false.
+        """
+        if root is None:
+            return False
+        elif root.key == key:
+            return True
+        elif key < root.key:
+            return self.search_from_root(root.left_child, key)
+        else:
+            return self.search_from_root(root.right_child, key)
 
     def inorder(self):
         """
@@ -113,8 +128,11 @@ class BST:
         @return Minimum key in tree.
         """
         # TO BE IMPLEMENTED
-        # Place holder for return
-        return BST.EMPTY_TREE
+        minval = self[0]
+        for i in self:
+            if self[i] < minval:
+                minval = self[i]
+        return minval
 
     def max(self):
         """
@@ -122,8 +140,11 @@ class BST:
         @return Maximum key in tree.
         """
         # TO BE IMPLEMENTED
-        # Place holder for return
-        return BST.EMPTY_TREE
+        maxval = self[0]
+        for i in self:
+            if self[i] > maxval:
+                maxval = self[i]
+        return maxval
 
     def height(self):
         """
@@ -132,8 +153,13 @@ class BST:
         """
 
         # TO BE IMPLEMENTED
-        # Place holder for return
-        return BST.EMPTY_TREE
+        return self.height_from_root(self.root)
+    
+    def height_from_root(self, root):
+        if root is None:
+            return -1
+        return 1 + max(self.height_from_root(root.left_child),
+                       self.height_from_root(root.right_child))
 
 
 class Node:
